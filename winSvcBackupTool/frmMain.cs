@@ -272,5 +272,59 @@ namespace winSvcBackupTool
             else
                 Status("Failed Loading Local Services");
         }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (lstCurrentServices.Items.Count > 0 && lstBackupServices.Items.Count > 0)
+            {
+                Status("Updating Service Startups");
+                ServiceBackupModel[] _current_services = ListViewToServiceBackupModel(lstCurrentServices);
+                ServiceBackupModel[] _backup_services = ListViewToServiceBackupModel(lstBackupServices);
+                toolStripProgress.Minimum = 0;
+                toolStripProgress.Value = 0;
+                toolStripProgress.Maximum = _current_services.Length;
+                toolStripProgress.Visible = true;
+                this.Update();
+                foreach (ServiceBackupModel _current in _current_services)
+                {
+                    //start type = the same color me green
+                    try
+                    {
+                        foreach (ServiceBackupModel _backup in _backup_services)
+                        {
+                            if (_current.ServiceName == _backup.ServiceName)
+                            {
+                                //we have a match check startup
+                                if (_current.StartType != _backup.StartType)
+                                {
+                                    ManagementObject wmiService;
+                                    wmiService = new ManagementObject($"Win32_Service.Name='{_current.ServiceName}'");
+                                    wmiService.Get();
+
+                                    ManagementBaseObject inParams = wmiService.GetMethodParameters("ChangeStartMode");
+
+                                    // Add the input parameters.
+                                    inParams["StartMode"] = _backup.StartType.ToString();
+
+                                    // Execute the method and obtain the return values.
+                                    ManagementBaseObject outParams = wmiService.InvokeMethod("ChangeStartMode", inParams, null);
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    catch (Exception _ex)
+                    {
+                        Status($"Failed Updating {_current.ServiceName}");
+                        break;
+                    }
+                    toolStripProgress.Value++;
+                    this.Update();
+                }
+                toolStripProgress.Visible = false;
+                Status("Updating Complete.");
+                this.Update();
+            }
+        }
     }
 }
