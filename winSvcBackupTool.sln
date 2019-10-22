@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.138
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "winSvcBackupTool", "winSvcBackupTool\winSvcBackupTool.csproj", "{5409245F-EA1D-4046-BD7B-7C21C1CA1B41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5409245F-EA1D-4046-BD7B-7C21C1CA1B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5409245F-EA1D-4046-BD7B-7C21C1CA1B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5409245F-EA1D-4046-BD7B-7C21C1CA1B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5409245F-EA1D-4046-BD7B-7C21C1CA1B41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6F627AC-3E41-491A-A811-D4611182F932}
+	EndGlobalSection
+EndGlobal
