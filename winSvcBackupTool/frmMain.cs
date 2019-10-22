@@ -309,6 +309,21 @@ namespace winSvcBackupTool
                                     // Execute the method and obtain the return values.
                                     ManagementBaseObject outParams = wmiService.InvokeMethod("ChangeStartMode", inParams, null);
                                 }
+                                if (_current.Status != _backup.Status)
+                                {
+                                    ServiceController _controller = new ServiceController(_current.ServiceName);
+                                    switch (_backup.Status)
+                                    {
+                                        case ServiceControllerStatus.StartPending:
+                                        case ServiceControllerStatus.Running:
+                                            _controller.Start();
+                                            break;
+                                        case ServiceControllerStatus.StopPending:
+                                        case ServiceControllerStatus.Stopped:
+                                            _controller.Stop();
+                                            break;
+                                    }
+                                }
                             }
                             break;
                         }
